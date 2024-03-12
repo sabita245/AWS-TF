@@ -11,3 +11,6 @@ default = "t2.micro"
 variable "instance_name"{
 default = "webserver"
 }
+variable "key_name" {
+    default = "tf-key"
+}
