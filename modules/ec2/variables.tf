@@ -1,6 +1,6 @@
 variable "vpc_name"{
     type = set(string)
-default = ["app-3-vpc"]
+default = ["app-vpc"]
 }
 variable "aws_region"{
 default = "us-east-1"
