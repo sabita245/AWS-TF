@@ -7,7 +7,7 @@ filter {
 data "aws_subnet" "vpc_subnets" {
   vpc_id = data.aws_vpc.vpc.id
   tags = {
-    Name = "app-3-subnet-public1-us-east-1a"
+    Name = "app-3-subnet-public"
   }
 }
 data "aws_ami" "linux" {
