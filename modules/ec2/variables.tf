@@ -1,16 +1,17 @@
-variable "vpc_name"{
-    type = set(string)
-default = ["app-vpc"]
+variable "vpc_name" {
+  type    = set(string)
+  default = ["app-3-vpc"]
 }
-variable "aws_region"{
-default = "us-east-1"
+
+variable "instance_type" {
+  type    = string
+  default = "t2.micro"
 }
-variable "instance_type"{
-default = "t2.micro"
-}
-variable "instance_name"{
-default = "webserver"
+variable "instance_name" {
+  type    = string
+  default = "webserver"
 }
 variable "key_name" {
-    default = "tf-key"
+  type    = string
+  default = "tf-key"
 }

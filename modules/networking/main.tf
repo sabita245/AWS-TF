@@ -1,3 +1,14 @@
+terraform {
+  required_version = ">= 0.12"
+}
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 3.0, < 4.0" # Specify the version constraint here
+    }
+  }
+}
 resource "aws_vpc" "demo_vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
@@ -43,16 +54,16 @@ resource "aws_subnet" "private_subnet" {
     Name = "${var.environment_name}-private-subnet.${count.index + 1}"
   }
 }
-resource "aws_route_table_association" "public_subnet_assoc"{
-count = 2
-route_table_id = aws_route_table.public_route.id
-subnet_id = aws_subnet.public_subnet.*.id[count.index]
-depends_on = [aws_route_table.public_route, aws_subnet.public_subnet]
+resource "aws_route_table_association" "public_subnet_assoc" {
+  count          = 2
+  route_table_id = aws_route_table.public_route.id
+  subnet_id      = aws_subnet.public_subnet[count.index].id
+  depends_on     = [aws_route_table.public_route, aws_subnet.public_subnet]
 }
-resource "aws_eip" "demo_eip"{
-domain = "vpc"
+resource "aws_eip" "demo_eip" {
+  #domain = "vpc"
 }
-resource "aws_nat_gateway" "demo_nat_gateway"{
-allocation_id = aws_eip.demo_eip.id
-subnet_id = aws_subnet.public_subnet.0.id
+resource "aws_nat_gateway" "demo_nat_gateway" {
+  allocation_id = aws_eip.demo_eip.id
+  subnet_id     = aws_subnet.public_subnet[0].id
 }
