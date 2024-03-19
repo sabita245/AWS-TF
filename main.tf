@@ -21,6 +21,6 @@ module "ec2" {
 module "aws-networking" {
   source = "./modules/networking"
 }
-module "secret" {
-  source = "./modules/secret"
+module "rds" {
+  source = "./modules/rds"
 }
