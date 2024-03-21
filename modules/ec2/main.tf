@@ -1,12 +1,12 @@
 terraform {
-  required_version = ">= 0.12"
+  required_version = "~> 1.5"
 }
 
 terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 3.0"
+      version = "~> 5.0"
     }
     tls = {
       source  = "hashicorp/tls"
@@ -32,11 +32,14 @@ resource "local_file" "rsa" {
   filename = var.key_name
 }
 resource "aws_instance" "demo_ec2" {
-  subnet_id     = data.aws_subnet.vpc_subnets.id
-  ami           = data.aws_ami.linux.id
-  key_name      = var.key_name
-  instance_type = var.instance_type
+
+  #subnet_id = data.aws_subnet.vpc_subnets.id
+  subnet_id              = var.subnet_id
+  ami                    = var.ami
+  key_name               = var.key_name
+  vpc_security_group_ids = var.vpc_security_group_ids
+  instance_type          = var.instance_type
   tags = {
-    Name = var.instance_name
+    Name = "${var.name}-instance"
   }
 }
