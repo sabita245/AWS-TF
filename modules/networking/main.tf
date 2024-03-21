@@ -1,11 +1,22 @@
 terraform {
   required_version = ">= 0.12"
 }
+/*
 terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = ">= 3.0, < 4.0" # Specify the version constraint here
+    }
+  }
+}
+*/
+terraform {
+  required_version = "~> 1.5"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
     }
   }
 }
@@ -66,4 +77,22 @@ resource "aws_eip" "demo_eip" {
 resource "aws_nat_gateway" "demo_nat_gateway" {
   allocation_id = aws_eip.demo_eip.id
   subnet_id     = aws_subnet.public_subnet[0].id
+}
+resource "aws_security_group" "sg" {
+  name        = "default-sg"
+  description = "Default security group to allow inbound/outbound from the VPC"
+  vpc_id      = aws_vpc.demo_vpc.id
+  depends_on  = [aws_vpc.demo_vpc]
+
+
+  egress {
+    from_port   = "0"
+    to_port     = "0"
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    self        = true
+  }
+  tags = {
+    Name = "allow SSH"
+  }
 }

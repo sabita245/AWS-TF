@@ -1,37 +1,94 @@
-variable "db_engine_version" {
-  type    = string
-  default = "5.7"
+variable "allocated_storage" {
+  default     = null
+  type        = number
+  description = "maximum strorage size"
 }
-
-variable "db_engine" {
+variable "db_name" {
   type    = string
-  default = "mysql"
+  default = null
 }
-
-variable "db_instance_identifier" {
-  type    = string
-  default = "app-db"
+variable "engine" {
+  type = string
 }
-
-variable "db_instance_class" {
+variable "engine_version" {
+  type = string
+}
+variable "instance_class" {
+  type = string
+}
+variable "username" {
+  type = string
+}
+variable "manage_master_user_password" {
+  type    = bool
+  default = true
+}
+variable "master_user_secret_kms_key_id" {
   type    = string
-  default = "db.t2.micro"
+  default = null
+}
+variable "db_subnet_group_name" {
+  type = string
+}
+variable "parameter_group_name" {
+  type = string
+}
+variable "vpc_security_group_ids" {
+  type = list(string)
+}
+variable "availability_zone" {
+  default = null
+  type    = string
+}
+variable "multi_az" {
+  type = bool
+}
+variable "publicly_accessible" {
+  default = null
+  type    = bool
+}
+variable "allow_major_version_upgrade" {
+  type = bool
+}
+variable "auto_minor_version_upgrade" {
+  type = bool
+}
+variable "apply_immediately" {
+  default = null
+  type    = bool
+}
+variable "maintenance_window" {
+  type    = string
+  default = null
+}
+variable "skip_final_snapshot" {
+  type    = bool
+  default = null
+}
+variable "backup_window" {
+  type    = string
+  default = null
+}
+variable "backup_retention_period" {
+  type = number
+}
+variable "max_allocated_storage" {
+  default = null
+  type    = number
+
+}
+variable "deletion_protection" {
+  type    = bool
+  default = null
 }
 /*
-variable "db_username" {
-  type    = string
-  default = "admin"
-}
-
-variable "db_password" {
-  type = string
-  # Note: It's recommended to use sensitive variables for passwords
-  #       to prevent them from being shown in plain text in the Terraform state file.
-  sensitive = true
+variable "vpc_security_group_ids" {
+  type = list(string)
 }
 */
-
-variable "db_allocated_storage" {
-  type    = number
-  default = 20
+variable "subnet_ids" {
+  type = list(string)
+}
+variable "family" {
+  type = string
 }

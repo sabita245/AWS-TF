@@ -1,0 +1,21 @@
+vpc_cidr          = "10.0.0.0/16"
+public_cidrs      = ["10.0.1.0/24", "10.0.2.0/24"]
+private_cidrs     = ["10.0.3.0/24", "10.0.4.0/24"]
+instance_type     = "t2.small"
+family            = "mysql5.6"
+engine            = "mysql"
+engine_version    = "5.7"
+instance_class    = "db.t2.small"
+allocated_storage = 10
+
+db_name                     = "arc_test_db"
+username                    = "admin"
+db_subnet_group_name        = "demo-subnet-group"
+parameter_group_name        = "demo-parameter-group"
+availability_zone           = "us-east-1a"
+multi_az                    = false
+allow_major_version_upgrade = false
+auto_minor_version_upgrade  = false
+skip_final_snapshot         = true
+deletion_protection         = false
+backup_retention_period     = 7
